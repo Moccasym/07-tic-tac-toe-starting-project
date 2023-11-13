@@ -1,59 +1,41 @@
 import React, { useState } from "react";
 
-const Player = ({name, symbol}) => {
+const Player = ({initialName, symbol}) => {
     const [isEditing, setIsEditing] = useState(false)
-    const [isSaved, setIsSaved] = useState(false)
-    // const [name, setName] = useState('player 1')
-    // const [symbol, setSymbol] = useState('x')
+    const [playerName, setPlayerName] = useState(initialName);
 
-    const [inputValue, setInputValue] = useState('');
+  
+
+    const onEditHandler = () => {
+        setIsEditing((editing) => !editing)
+    }
 
     // Event handler to capture changes in the input field
     const handleInputChange = (event) => {
-      // Update the state with the new input value
-      setInputValue(event.target.value);
+        // Update the state with the new input value
+        setPlayerName(event.target.value);
     };
 
+    let editPlayerName = <span className="player-name">{playerName}</span>
 
-    const onEditHandler = () => {
-        setIsEditing(true)
-    }
+    if (isEditing) {
+        editPlayerName = <input type="text" required value={playerName} onChange={handleInputChange} />
+    
+    } 
 
-    const onSaveHandler = () => {
-        setIsSaved(true)
-    }
-
-
-
-    if (isEditing === true) {
-        return(
-            <li>
-            <span className="player">
-              <input className="player-name" value={inputValue} onChange={handleInputChange}></input>
-              <span className="player-symbol">{symbol}</span>
-            </span>
-            <button onClick={onSaveHandler}>Save</button>
-          </li>
-        )
-        }else if (isSaved === true){
-            return(
-                <li>
-                <span className="player">
-                  <span className="player-name">{inputValue}</span>
-                  <span className="player-symbol">{symbol}</span>
-                </span>
-              </li>
-            )
-    } else {
     return(
         <li>
             <span className="player">
-              <span className="player-name">{name}</span>
+              {editPlayerName}
               <span className="player-symbol">{symbol}</span>
             </span>
-            <button onClick={onEditHandler}>Edit</button>
+            <button onClick={onEditHandler}>{isEditing ? 'Save':'Edit'}</button>
           </li>
-    )}
+    )
 }
 
 export default Player;
+
+
+
+
