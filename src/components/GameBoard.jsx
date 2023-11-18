@@ -1,33 +1,23 @@
 import React from "react";
 
-const initialGameBoard = [
-    [null,null,null],
-    [null,null,null],
-    [null,null,null],
-]
 
-const GameBoard = ({ onSelectSquare, turns }) => {
-    let gameBoard = initialGameBoard;
 
-    for (const turn of turns) {
-        const { square, player} = turn;
-        const { row, col } = square;
+const GameBoard = ({ onSelectSquare, board }) => {
 
-        gameBoard[row][col] = player;
-    }
 
     return(
         <ol id="game-board">
-            {gameBoard.map((row, rowIndex) => 
+            {board.map((row, rowIndex) => 
             <li key={rowIndex}>
                 <ol>
                     {row.map((playerSymbol, colIndex) => 
                     <li key={colIndex}>
-                        <button onClick={() => onSelectSquare(rowIndex, colIndex)}>{playerSymbol}</button>
+                        <button onClick={() => onSelectSquare(rowIndex, colIndex)} disabled={playerSymbol !== null ? true : false}>
+                            {playerSymbol} 
+                        </button>
                     </li>)}
                 </ol>
             </li>)}
-            
         </ol>
     );    
 
