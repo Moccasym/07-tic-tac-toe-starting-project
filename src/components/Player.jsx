@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 
-const Player = ({initialName, symbol, isActive}) => {
+const Player = ({initialName, symbol, isActive, onChangeName}) => {
     const [isEditing, setIsEditing] = useState(false)
     const [playerName, setPlayerName] = useState(initialName);
 
   
 
     const onEditHandler = () => {
-        setIsEditing((editing) => !editing)
+        setIsEditing((editing) => !editing);
+        if (isEditing){
+            onChangeName(symbol, playerName);
+        }
     }
 
     // Event handler to capture changes in the input field
@@ -19,7 +22,7 @@ const Player = ({initialName, symbol, isActive}) => {
     let editPlayerName = <span className="player-name">{playerName}</span>
 
     if (isEditing) {
-        editPlayerName = <input type="text" required value={playerName} onChange={handleInputChange} />
+        editPlayerName = (<input type="text" required value={playerName} onChange={handleInputChange} />)
     } 
 
     return(
