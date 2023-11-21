@@ -20,7 +20,6 @@ const Player = ({initialName, symbol, isActive}) => {
 
     if (isEditing) {
         editPlayerName = <input type="text" required value={playerName} onChange={handleInputChange} />
-    
     } 
 
     return(
